@@ -186,9 +186,13 @@ function image_url($post) {
 }
 
 function validate_user($account_name, $password) {
-    if (!(preg_match('/\A[0-9a-zA-Z_]{3,}\z/', $account_name) && preg_match('/\A[0-9a-zA-Z_]{6,}\z/', $password))) {
+
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_";
+
+    if (strspn($account_name, $characters) != strlen($account_name) || strlen($account_name) < 3 || strspn($password, $characters) != strlen($password) || strlen($password) < 6) {
         return false;
     }
+
     return true;
 }
 
